@@ -1,6 +1,6 @@
 platform :ios, '14.0'
 
-target 'Wefox Pokedex' do
+target 'Pokedex' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   inhibit_all_warnings!
@@ -9,16 +9,16 @@ target 'Wefox Pokedex' do
   pod 'Haneke', :git => 'https://github.com/ronanociosoig/Haneke.git'
   pod 'JGProgressHUD', :git => 'https://github.com/ronanociosoig/JGProgressHUD.git'
 
-  # Pods for Wefox Pokedex
+  # Pods for Pokedex
 
-  target 'Wefox PokedexTests' do
+  target 'PokedexTests' do
     inherit! :search_paths
     # Pods for testing
   end
   
 end
 
-target 'Wefox PokedexUITests' do
+target 'PokedexUITests' do
   use_frameworks!
   inhibit_all_warnings!
   
