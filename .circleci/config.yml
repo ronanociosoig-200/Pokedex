@@ -18,7 +18,8 @@ jobs:
     steps:
       - checkout
       - run: pod install
-      - run: xcodebuild -list
+      # - run: xcodebuild -list
+      - run: xcodebuild -workspace "Wefox Pokedex.xcworkspace" -scheme "Wefox Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
       #- ruby/install-deps
       #- run:
       #    name: fastlane
