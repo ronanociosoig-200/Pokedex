@@ -2,26 +2,35 @@
 
 version: 2.1
 
+# ruby: circleci/ruby@1.2.0
 orbs:
-  ruby: circleci/ruby@1.2.0
+  macos: circleci/macos@2.1.0
 
 jobs:
   build:
     macos:
       xcode: "13.1.0"
     working_directory: /Users/distiller/project
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: test
+    #environment:
+    #  FL_OUTPUT_DIR: output
+    #  FASTLANE_LANE: test
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - ruby/install-deps
-      - run:
-          name: fastlane
-          command: bundle exec fastlane $FASTLANE_LANE
+      - run: pod install
+      # - run: xcodebuild -list
+      - run: xcodebuild build-for-testing -workspace "Wefox Pokedex.xcworkspace" -scheme "Wefox Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
+      - run: xcodebuild test-without-building -workspace "Wefox Pokedex.xcworkspace" -scheme "Wefox Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
+      #- ruby/install-deps
+      #- run:
+      #    name: fastlane
+      #    command: bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: output
       - store_test_results:
           path: output/scan
 
+workflows: 
+  build-project: 
+    jobs: 
+      - build
