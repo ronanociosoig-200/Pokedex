@@ -27,5 +27,6 @@ jobs:
           path: output/scan
 
 workflows: 
-  jobs: 
-    - build
+  build-project: 
+    jobs: 
+      - build
