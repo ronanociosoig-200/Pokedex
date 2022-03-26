@@ -26,3 +26,6 @@ jobs:
       - store_test_results:
           path: output/scan
 
+workflows: 
+  jobs: 
+    - build
