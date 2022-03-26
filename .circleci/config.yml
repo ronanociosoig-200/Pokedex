@@ -2,8 +2,8 @@
 
 version: 2.1
 
+# ruby: circleci/ruby@1.2.0
 orbs:
-  ruby: circleci/ruby@1.2.0
   macos: circleci/macos@2.1.0
 
 jobs:
@@ -11,9 +11,9 @@ jobs:
     macos:
       xcode: "13.1.0"
     working_directory: /Users/distiller/project
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: test
+    #environment:
+    #  FL_OUTPUT_DIR: output
+    #  FASTLANE_LANE: test
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
