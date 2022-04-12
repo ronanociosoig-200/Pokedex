@@ -18,7 +18,7 @@ jobs:
       - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./output
       # - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: .
           paths:
             - output
   test:
