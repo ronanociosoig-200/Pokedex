@@ -30,6 +30,7 @@ jobs:
     steps: 
       - attach_workspace:
           at: /tmp/workspace
+      - run: ls -lap 
       - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./output
 
 workflows: 
