@@ -22,7 +22,7 @@ jobs:
           paths:
             - "Pokedex.xcworkspace"
             - "Pokedex.xcodeproj"
-            - "output/Build/Products*"
+            - "output/Build/Products/*"
   test:
     macos: 
       xcode: 13.2.1
