@@ -11,26 +11,32 @@ jobs:
     macos:
       xcode: "13.1.0"
     working_directory: /Users/distiller/project
-    #environment:
-    #  FL_OUTPUT_DIR: output
-    #  FASTLANE_LANE: test
-    shell: /bin/bash --login -o pipefail
     steps:
       - checkout
       - run: pod install
       # - run: xcodebuild -list
-      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
-      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
-      #- ruby/install-deps
-      #- run:
-      #    name: fastlane
-      #    command: bundle exec fastlane $FASTLANE_LANE
+      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./output
+      # - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
+      - persist_to_workspace:
+          root: .
+          paths:
+            - output
+
       - store_artifacts:
           path: output
       - store_test_results:
           path: output/scan
+  test:
+    macos: 
+      xcode: 13.2.1
+    working_directory: /Users/distiller/project
+    steps: 
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./output
 
 workflows: 
   build-project: 
     jobs: 
       - build
+      - test
