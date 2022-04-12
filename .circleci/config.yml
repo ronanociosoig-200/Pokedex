@@ -20,6 +20,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
+            - "Pokedex.xcworkspace"
+            - "Pokedex.xcodeproj"
             - output
   test:
     macos: 
