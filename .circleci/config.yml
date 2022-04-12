@@ -22,7 +22,7 @@ jobs:
           paths:
             - "Pokedex.xcworkspace"
             - "Pokedex.xcodeproj"
-            - output/Build/Products
+            - "output/Build/Products*"
   test:
     macos: 
       xcode: 13.2.1
@@ -30,6 +30,10 @@ jobs:
     steps: 
       - attach_workspace:
           at: /tmp/workspace
+      - run:
+          name: Setup new DerivedData folder
+          command: |
+              mv /tmp/workspace/* .
       - run: ls -lap 
       - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./output
 
