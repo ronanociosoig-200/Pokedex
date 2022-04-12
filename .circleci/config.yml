@@ -2,7 +2,6 @@
 
 version: 2.1
 
-# ruby: circleci/ruby@1.2.0
 orbs:
   macos: circleci/macos@2.1.0
 
@@ -14,15 +13,13 @@ jobs:
     steps:
       - checkout
       - run: pod install
-      # - run: xcodebuild -list
-      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./output
-      # - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
+      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./derivedData
       - persist_to_workspace:
           root: .
           paths:
             - "Pokedex.xcworkspace"
             - "Pokedex.xcodeproj"
-            - "output/Build/Products/*"
+            - "derivedData/Build/Products/*"
   test:
     macos: 
       xcode: 13.2.1
@@ -31,11 +28,10 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run:
-          name: Setup new DerivedData folder
+          name: Restore derivedData folder
           command: |
               mv /tmp/workspace/* .
-      - run: ls -lap 
-      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./output
+      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./derivedData
 
 workflows: 
   build-project: 
