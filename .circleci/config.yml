@@ -2,41 +2,21 @@
 
 version: 2.1
 
-orbs:
-  macos: circleci/macos@2.1.0
+#orbs:
+#  macos: circleci/macos@2.2.0
 
 jobs:
-  build:
+  build_and_test:
     macos:
       xcode: "13.1.0"
     working_directory: /Users/distiller/project
     steps:
       - checkout
       - run: pod install
-      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./derivedData
-      - persist_to_workspace:
-          root: .
-          paths:
-            - "Pokedex.xcworkspace"
-            - "Pokedex.xcodeproj"
-            - "derivedData/Build/Products/*"
-  test:
-    macos: 
-      xcode: 13.2.1
-    working_directory: /Users/distiller/project
-    steps: 
-      - attach_workspace:
-          at: /tmp/workspace
-      - run:
-          name: Restore derivedData folder
-          command: |
-              mv /tmp/workspace/* .
+      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
       - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./derivedData
 
 workflows: 
   build-project: 
     jobs: 
-      - build
-      - test:
-          requires:
-            - build
+      - build_and_test
