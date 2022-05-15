@@ -6,16 +6,21 @@ version: 2.1
 #  macos: circleci/macos@2.2.0
 
 jobs:
-  build_and_test:
+  build:
     macos:
       xcode: "13.1.0"
     steps:
       - checkout
       - run: pod install
       - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
+  test:
+    macos: 
+      xcode: 13.3.1
+    steps: 
       - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
 
 workflows: 
   build-project: 
     jobs: 
-      - build_and_test
+      - build
+      - test
