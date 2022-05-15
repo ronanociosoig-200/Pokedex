@@ -9,12 +9,11 @@ jobs:
   build_and_test:
     macos:
       xcode: "13.1.0"
-    working_directory: /Users/distiller/project
     steps:
       - checkout
       - run: pod install
       - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
-      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11" -derivedDataPath ./derivedData
+      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
 
 workflows: 
   build-project: 
