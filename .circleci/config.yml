@@ -24,4 +24,7 @@ workflows:
   build-project: 
     jobs: 
       - build
-      - test
+      - test: 
+          requires: 
+            - build
+
