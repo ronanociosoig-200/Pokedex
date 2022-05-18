@@ -11,9 +11,9 @@ jobs:
       xcode: "13.1.0"
     steps:
       - checkout
-      - run:
-          name: Install SwiftLint
-          command: brew install swiftlint 
+      #- run:
+        #  name: Install SwiftLint
+        #  command: brew install swiftlint 
       - run: pod install
       - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
   test:
