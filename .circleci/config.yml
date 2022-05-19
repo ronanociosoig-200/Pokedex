@@ -17,12 +17,12 @@ jobs:
       - restore_cache:
           name: Restore CocoaPods
           keys:
-            - pokedex-{{ checksum "Podfile.lock" }}-
+            - pokedex-{{ checksum "Podfile.lock" }}-1
             - pokedex- 
       - run: pod install
       - save_cache:
           name: Save CocoaPods
-          key: pokedex-{{ checksum "Podfile.lock" }}
+          key: pokedex-{{ checksum "Podfile.lock" }}-1
           paths:
             - ./Pods
       - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
