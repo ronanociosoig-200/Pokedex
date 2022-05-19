@@ -6,7 +6,7 @@ version: 2.1
 #  macos: circleci/macos@2.2.0
 
 jobs:
-  build:
+  build_and_test:
     macos:
       xcode: "13.1.0"
     steps:
@@ -14,19 +14,21 @@ jobs:
       #- run:
         #  name: Install SwiftLint
         #  command: brew install swiftlint 
+      - restore_cache:
+          name: Restore CocoaPods
+          keys:
+            - pokedex-{{ checksum "Podfile.lock" }}-
+            - pokedex- 
       - run: pod install
+      - save_cache:
+          name: Save CocoaPods
+          key: pokedex-{{ checksum "Podfile.lock" }}
+          paths:
+            - /Pods
       - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
-  test:
-    macos: 
-      xcode: 13.3.1
-    steps: 
       - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
-
 workflows: 
-  build-project: 
+  build_and_test_workflow: 
     jobs: 
-      - build
-      - test: 
-          requires: 
-            - build
+      - build_and_test
 
