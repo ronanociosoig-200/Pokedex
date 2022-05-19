@@ -9,7 +9,7 @@
   • <a href="#automated-testing">Automated Testing</a>
 </p>
 
-[![CircleCI](https://circleci.com/gh/ronanociosoig/Pokedex/tree/master.svg?style=svg)](https://circleci.com/gh/ronanociosoig/Pokedex/tree/master)
+[![CircleCI](https://circleci.com/gh/ronanociosoig-200/Pokedex/tree/main.svg?style=svg)](https://circleci.com/gh/ronanociosoig-200/Pokedex/tree/main)
 
 # Pokedex
 
