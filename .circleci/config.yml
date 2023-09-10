@@ -23,8 +23,8 @@ jobs:
           key: pokedex-{{ checksum "Podfile.lock" }}-1
           paths:
             - ./Pods
-      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
-      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 11"
+      - run: xcodebuild build-for-testing -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 14,OS=16.4"
+      - run: xcodebuild test-without-building -workspace "Pokedex.xcworkspace" -scheme "Pokedex" -destination "platform=iOS Simulator,name=iPhone 14,OS=16.4"
 workflows: 
   build_test_workflow: 
     jobs: 
